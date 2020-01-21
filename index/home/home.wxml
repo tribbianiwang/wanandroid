@@ -1,2 +1,18 @@
-<!--index/home/home.wxml-->
-<text>index/home/home.wxml</text>
+<!-- 轮播图 -->
+<view class='carousel'> 
+  <swiper class='carousel_swiper' indicator-dots="true" indicator-color="white" indicator-active-color="#A82127" autoplay="true" interval='4000' circular='true'>
+    <block wx:for="{{carouselList}}" wx:key="key" >
+      <swiper-item bindtap='chomeCarouselClick'>
+        <image src='{{item.imagePath}}' mode='scaleToFill' style="width:100%;height=200rpx"></image>
+      </swiper-item>
+    </block>
+  </swiper>
+ </view>
+/*几个有用的说明：
+  indicator-dots 是否显示指示器
+  indicator-color 指示器默认颜色
+  indicator-active-color   指示器选中颜色
+  autoplay 是否自动播放
+  interval 每一页停留的时长
+  circular 播放到最后一页后是否再衔接第一页循环播放
+*/

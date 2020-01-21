@@ -9,7 +9,6 @@ Page({
     bannerDataList: [],//轮播图bean
      articalListBeans:[],//首页文章列表bean
      articalPage:0 //文章分页标识
-
   },
 
   /**
@@ -138,6 +137,16 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    this.data.articalPage = 0
+    this.data.articalListBeans = [];
+    this.getMore(this.data.articalPage);
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+    //模拟加载
+    setTimeout(function () {
+      // complete
+      wx.hideNavigationBarLoading() //完成停止加载
+      wx.stopPullDownRefresh() //停止下拉刷新
+    }, 1500);
 
   },
 

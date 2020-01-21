@@ -6,17 +6,22 @@ Page({
    */
   data: {
     host: getApp().globalData.baseUrl,
-    carouselList: [],
+    bannerDataList: [],//轮播图bean
+     articalListBeans:[],//首页文章列表bean
+     articalPage:0 //文章分页标识
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.requestCarouselListData();//请求轮播图
+    this.requestbannerDataListData();//请求轮播图
+    var that = this;
+    this.getMore(that.data.articalPage);
   },
   //请求轮播图
-  requestCarouselListData() {
+  requestbannerDataListData() {
     var that = this;//注意this指向性问题
     var urlStr = that.data.host + "/banner/json"; //请求连接注意替换（我用本地服务器模拟）
     console.log("请求轮播图：" + urlStr);
@@ -34,7 +39,7 @@ Page({
         console.log(res.data.errorCode);
         var resultArr = res.data.data;
         that.setData({
-          carouselList: resultArr
+          bannerDataList: resultArr
         })
       }
     })
@@ -47,6 +52,58 @@ Page({
     // wx.navigateTo({
     //   url: 'test?id=1'
     // })
+  },
+
+  getMore: function (page) {
+    var that = this;
+    var urlStr = that.data.host + "/article/list/" + page + "/json"
+    if (page == 0) {
+      wx.showLoading({
+        title: '加载中',
+      })
+    }
+
+    console.log("请求文章" + urlStr);
+
+    wx.request({
+      url: urlStr,
+      method: 'GET',
+      data: {
+        pageNo: page
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        if (res.data.data.over) {
+          wx.showToast({
+            title: '没有更多了',
+          })
+        }else if (page == 0) {
+          that.setData({
+            articalListBeans: res.data.data.datas,
+            page: page + 1
+          })
+        } else {
+
+          var beforeAddArticalList = that.data.articalListBeans;
+          that.setData({
+            articalListBeans: beforeAddArticalList.concat(res.data.data.datas),
+            page: page + 1
+          })
+        }
+      }, fail: function () {
+        wx.showToast({
+          title: '服务器异常',
+          duration: 1500
+        })
+      },
+      complete: function () {
+       
+          wx.hideLoading()
+        
+      }
+    })
   },
 
   /**
@@ -88,6 +145,13 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    console.log(1);
+    wx.showLoading({
+      title: '加载更多',
+    })
+   
+    var that = this;
+    this.getMore(that.data.page);
 
   },
 

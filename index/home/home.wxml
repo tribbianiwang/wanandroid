@@ -12,7 +12,7 @@
 
     <scroll-view  scroll-y='true' style='height:100%;' >
     <view  wx:for="{{articalListBeans}}" wx:key="id">
-    <view style="margin-left:20rpx;margin-top:30rpx" bindtap="onArticleItemClick" data-url="{{item.link}}">
+    <view class="view-white-bg-normal" hover-class='view-white-bg-hover' style="padding-left:20rpx;padding-top:30rpx;padding-bottom:30rpx" bindtap="onArticleItemClick" data-url="{{item.link}}">
 
     <text style="width:100%;font-size:14px;color:black;margin-top:20rpx">{{item.title}}</text>
        <view style="display:flex;justify-content:space-between;margin-top:30rpx;"> 
@@ -22,7 +22,7 @@
 
 </view>
 
-  <view class="grayWhiteLine" style="margin-top:30rpx"></view>
+  <view class="grayWhiteLine" ></view>
     </view>
  </scroll-view>
 

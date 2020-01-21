@@ -1,1 +1,10 @@
 /* index/home/home.wxss */
+
+.view-white-bg-normal {
+  background-color: white;
+
+}
+
+.view-white-bg-hover{
+  background-color: #F2F2F2;
+}

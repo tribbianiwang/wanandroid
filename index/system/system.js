@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    host: getApp().globalData.baseUrl,
+    systemListBeans: [],//体系列表bean
   },
 
   /**
@@ -13,7 +14,35 @@ Page({
    */
   onLoad: function (options) {
 
+    this.getWanAndroidSystemInfos()
+
   },
+
+  //请求轮播图
+  getWanAndroidSystemInfos() {
+    var that = this;//注意this指向性问题
+    var urlStr = that.data.host + "/tree/json"; //请求连接注意替换（我用本地服务器模拟）
+    console.log("请求体系：" + urlStr);
+    wx.request({
+      url: urlStr,
+      data: {//这里放请求参数，如果传入参数值不是String，会被转换成String 
+        // x: '',
+        // y: ''
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success(res) {
+        console.log("轮播图返回值：");
+        console.log(res.data.errorCode);
+        var resultArr = res.data.data;
+        that.setData({
+          systemListBeans: resultArr
+        })
+      }
+    })
+  },
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成

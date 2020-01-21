@@ -169,5 +169,33 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  /**
+   * 点击文章复制到粘贴板
+   */
+
+  onArticleItemClick:function(e){
+    // 传递的参数
+    var query = e.currentTarget.dataset.url;
+    console.log(query)
+
+
+    wx.setClipboardData({
+      data: query,
+      success:function(res){
+        wx.showToast({
+          title: '链接已复制到粘贴板,请到浏览器中访问',
+        })
+      }
+    })
+
+
+
   }
+
+
+
+
+
 })

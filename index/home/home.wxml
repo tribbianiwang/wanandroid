@@ -12,7 +12,7 @@
 
     <scroll-view  scroll-y='true' style='height:100%;' >
     <view  wx:for="{{articalListBeans}}" wx:key="id">
-    <view style="margin-left:20rpx;margin-top:30rpx">
+    <view style="margin-left:20rpx;margin-top:30rpx" bindtap="onArticleItemClick" data-url="{{item.link}}">
 
     <text style="width:100%;font-size:14px;color:black;margin-top:20rpx">{{item.title}}</text>
        <view style="display:flex;justify-content:space-between;margin-top:30rpx;"> 

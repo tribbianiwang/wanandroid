@@ -43,6 +43,28 @@ Page({
     })
   },
 
+  /**
+   * 跳转到体系详情
+   */
+  skipToSystemDetail:function(e){
+    var systemName = e.currentTarget.dataset.systemname;
+    var systemChildren = e.currentTarget.dataset.children;
+    var categoryList = [];
+    systemChildren.forEach(element => {
+      categoryList.push({
+        id:element.id,
+        name:element.name
+      })
+      
+    });
+
+    wx.navigateTo({
+      url: '/index/system/systemdetail/systemdetail?categoryList='+encodeURIComponent(JSON.stringify(categoryList))+"&categoryName="+systemName,
+    })
+     
+
+
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

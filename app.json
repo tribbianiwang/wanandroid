@@ -2,6 +2,7 @@
   "pages": [
     "index/home/home",
     "index/system/system",
+    "index/system/systemdetail/systemdetail",
     "index/hotsearch/hotsearch",
     "index/program/program",
     "index/mine/mine"

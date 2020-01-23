@@ -5,6 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+     categoryList:[],
+    tabs: [],
+    activeTab: 0,
 
   },
 
@@ -15,9 +18,29 @@ Page({
     wx.setNavigationBarTitle({
       title: options.categoryName,
     })
-    var categoryList =JSON.parse(decodeURIComponent(options.categoryList))
+    var transCategoryList =JSON.parse(decodeURIComponent(options.categoryList))
+    this.data.categoryList = transCategoryList
 
+    const tabs = transCategoryList.map(item => ({
+        title:item.name,
+          id:item.id
+    }))
 
+    // const titles = ['首页', '外卖', '商超生鲜', '购物', '美食饮品', '生活服务', '休闲娱乐', '出行']
+    // const tabs = titles.map(item => ({ title: item }))
+    this.setData({ tabs })
+    console.log("onLoad" + this.data.categoryList[index].name)
+
+  },
+  onTabCLick(e) {
+    const index = e.detail.index
+    this.setData({ activeTab: index })
+    console.log("ontabclick"+this.data.categoryList[index].name)
+  },
+  onChange(e) {
+    const index = e.detail.index
+    this.setData({ activeTab: index })
+    console.log("onchange"+this.data.categoryList[index].name)
   },
 
   /**
